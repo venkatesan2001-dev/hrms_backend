@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://venkatesan2001official:v7ycpdMNzurgBQEu@cluster0.we3z6ih.mongodb.net/';
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 mongoose
   .connect(MONGO_URI, { dbName: 'hrms_db' })
