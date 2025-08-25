@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { EmailTemplate } from './schema/email_template.schema';
 import { Model } from 'mongoose';
-import { findAndPaginateData } from 'src/utils/querybuilder';
+import { findAndPaginateData } from '../../utils/querybuilder';
 
 @Injectable()
 export class EmailTemplateService {

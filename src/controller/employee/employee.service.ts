@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Employee } from './schema/employee.schema';
 import { Model } from 'mongoose';
-import { findAndPaginateData } from 'src/utils/querybuilder';
+import { findAndPaginateData } from '../../utils/querybuilder';
 import { ConfigService } from '@nestjs/config';
-import { MailConfigService } from 'src/utils/mail.config';
+import { MailConfigService } from '../../utils/mail.config';
 import { EmailTemplateService } from '../email_template/email_template.service';
-import { DefaultMessage, EmailTemplatesConfig } from 'src/constants';
+import { DefaultMessage, EmailTemplatesConfig } from '../../constants';
 
 const { pbkdf2 } = require('node:crypto');
 

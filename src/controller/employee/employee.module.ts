@@ -3,7 +3,7 @@ import { EmployeeService } from './employee.service';
 import { EmployeeController } from './employee.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Employee, EmployeeSchema } from './schema/employee.schema';
-import { MailConfigService } from 'src/utils/mail.config';
+import { MailConfigService } from '../../utils/mail.config';
 import { AuthService } from '../auth/auth.service';
 import { EmailTemplateService } from '../email_template/email_template.service';
 import {

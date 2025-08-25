@@ -13,13 +13,13 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { CommonInterceptor } from 'src/common.interceptor';
+import { CommonInterceptor } from '../../common.interceptor';
 import {
   DefaultMessage,
   EmailTemplatesConfig,
   ReportSampleConfig,
   ResponseStatus,
-} from 'src/constants';
+} from '../../constants';
 import { AuthService } from './auth.service';
 import {
   ChnagePasswordDto,
@@ -28,7 +28,7 @@ import {
   ResetPasswordDto,
   ResetPasswordParamsDto,
 } from './dto/auth.dto';
-import { MailConfigService } from 'src/utils/mail.config';
+import { MailConfigService } from '../../utils/mail.config';
 import { atob } from 'buffer';
 import { AuthGuard } from './auth.guard';
 import { EmailTemplateService } from '../email_template/email_template.service';

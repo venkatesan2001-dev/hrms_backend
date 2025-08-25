@@ -8,7 +8,7 @@ import {
 } from './schema/email_template.schema';
 import { AuthService } from '../auth/auth.service';
 import { EmployeeService } from '../employee/employee.service';
-import { MailConfigService } from 'src/utils/mail.config';
+import { MailConfigService } from '../../utils/mail.config';
 import { Employee, EmployeeSchema } from '../employee/schema/employee.schema';
 
 @Module({

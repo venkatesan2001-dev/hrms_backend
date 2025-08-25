@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { ResponseStatus } from 'src/constants';
+import { ResponseStatus } from '../constants';
 import { Logger } from 'winston';
 
 @Catch(BadRequestException)

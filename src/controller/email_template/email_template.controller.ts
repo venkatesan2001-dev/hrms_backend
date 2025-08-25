@@ -11,18 +11,18 @@ import {
 } from '@nestjs/common';
 import { isValidObjectId } from 'mongoose';
 import { AuthGuard } from '../auth/auth.guard';
-import { CommonInterceptor } from 'src/common.interceptor';
+import { CommonInterceptor } from '../../common.interceptor';
 import {
   CreateEmailTemplateDto,
   UpdateEmailTemplateDto,
 } from './dto/email_template.dto';
 import { EmailTemplateService } from './email_template.service';
-import { DefaultMessage, ResponseStatus } from 'src/constants';
+import { DefaultMessage, ResponseStatus } from '../../constants';
 import {
   getFieldsForSearch,
   getFiltersObject,
   convertToUppercase,
-} from 'src/utils/querybuilder';
+} from '../../utils/querybuilder';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('email_template')

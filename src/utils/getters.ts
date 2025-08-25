@@ -1,4 +1,4 @@
-import { DefaultMessage } from 'src/constants';
+import { DefaultMessage } from '../constants';
 
 export const PURPOSE_OF_TESTING_DATA = [
   { name: 'BIS FULL TESTING', value: 'BIS_FULLTESTING' },

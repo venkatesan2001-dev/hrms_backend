@@ -4,7 +4,7 @@ import { AuthController } from './auth.controller';
 import { EmployeeService } from '../employee/employee.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Employee, EmployeeSchema } from '../employee/schema/employee.schema';
-import { MailConfigService } from 'src/utils/mail.config';
+import { MailConfigService } from '../../utils/mail.config';
 import { EmailTemplateService } from '../email_template/email_template.service';
 import {
   EmailTemplate,

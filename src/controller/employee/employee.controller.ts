@@ -19,10 +19,10 @@ import {
   GetState,
   UpdateEmployeeDto,
 } from './dto/create-employee.dto';
-import { CommonInterceptor } from 'src/common.interceptor';
+import { CommonInterceptor } from '../../common.interceptor';
 import { AuthGuard } from '../auth/auth.guard';
-import { DefaultMessage, ResponseStatus } from 'src/constants';
-import { getFieldsForSearch, getFiltersObject } from 'src/utils/querybuilder';
+import { DefaultMessage, ResponseStatus } from '../../constants';
+import { getFieldsForSearch, getFiltersObject } from '../../utils/querybuilder';
 import { AdminAuthGuard } from '../auth/adminauth.guard';
 import { isValidObjectId } from 'mongoose';
 import country from '../../utils/country-state-city/country.json';
