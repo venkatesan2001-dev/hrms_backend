@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import usersRouter from "./routes/users.js";
 import payrollRouter from "./routes/payroll.js";
 import payrunRouter from "./routes/payrun.js";
+import departmentsRouter from "./routes/departments.js";
+import rolesRouter from "./routes/roles.js";
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ async function ensureMongoConnection() {
     process.env.MONGO_URI ||
     "mongodb+srv://venkatesan2001official:v7ycpdMNzurgBQEu@cluster0.we3z6ih.mongodb.net/";
   await mongoose.connect(MONGO_URI, { dbName: "hrms_db" });
+  console.log("Connected to MongoDB");
   isMongoConnected = true;
 }
 
@@ -43,6 +46,8 @@ export function createApp({ basePath = "" } = {}) {
   app.use(`${basePath}/users`, usersRouter);
   app.use(`${basePath}/payroll`, payrollRouter);
   app.use(`${basePath}/payrun`, payrunRouter);
+  app.use(`${basePath}/departments`, departmentsRouter);
+  app.use(`${basePath}/roles`, rolesRouter);
 
   app.use((err, req, res, next) => {
     console.error(err);

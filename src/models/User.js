@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -11,6 +12,14 @@ const UserSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Add pagination plugin
+UserSchema.plugin(mongoosePaginate);
+
+// Indexes for better performance
+UserSchema.index({ firstName: 1, lastName: 1 });
+UserSchema.index({ role: 1 });
+UserSchema.index({ isActive: 1 });
 
 export default mongoose.model('User', UserSchema);
 
