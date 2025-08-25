@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { DefaultMessage, ResponseStatus } from 'src/constants';
+import { DefaultMessage, ResponseStatus } from '../constants';
 
 export const getFieldsForSearch = (body: any, fields: string[]) => {
   const reqField = body?.filters?.search?.field;
