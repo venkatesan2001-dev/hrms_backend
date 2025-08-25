@@ -36,6 +36,7 @@ export function createApp({ basePath = "" } = {}) {
   app.get("/", (req, res) => {
     res.json({
       message: `Welcome to the HRMS API ${isMongoConnected ? "Yes" : "No"}`,
+      url: process.env.MONGO_URI,
     });
   });
 
