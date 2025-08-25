@@ -16,11 +16,9 @@ let isMongoConnected = false;
 
 async function ensureMongoConnection() {
   if (isMongoConnected) return;
-  const MONGO_URI =
-    process.env.MONGO_URI ||
-    "mongodb+srv://venkatesan2001official:v7ycpdMNzurgBQEu@cluster0.we3z6ih.mongodb.net/";
+  const MONGO_URI = process.env.MONGO_URI;
   await mongoose.connect(MONGO_URI, { dbName: "hrms_db" });
-  console.log("Connected to MongoDB");
+  console.log("Connected to MongoDB", MONGO_URI);
   isMongoConnected = true;
 }
 

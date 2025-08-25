@@ -44,7 +44,6 @@ const departmentSchema = new mongoose.Schema(
 departmentSchema.plugin(mongoosePaginate);
 
 // Indexes for better performance
-departmentSchema.index({ status: 1 });
 
 const Department = mongoose.model("Department", departmentSchema);
 
