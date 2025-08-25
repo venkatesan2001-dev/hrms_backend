@@ -34,7 +34,9 @@ export function createApp({ basePath = "" } = {}) {
   });
 
   app.get("/", (req, res) => {
-    res.json({ message: "Welcome to the HRMS API" });
+    res.json({
+      message: `Welcome to the HRMS API ${isMongoConnected ? "Yes" : "No"}`,
+    });
   });
 
   app.get(`${basePath}/health`, (req, res) => {
