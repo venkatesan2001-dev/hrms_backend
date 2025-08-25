@@ -6,11 +6,11 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { DefaultMessage, ResponseStatus } from 'src/constants';
+import { DefaultMessage, ResponseStatus } from '../../constants';
 import { AuthService } from './auth.service';
-import { extractTokenFromHeader } from 'src/utils/extract-token';
+import { extractTokenFromHeader } from '../../utils/extract-token';
 import { ConfigService } from '@nestjs/config';
-import { convertToUppercase } from 'src/utils/querybuilder';
+import { convertToUppercase } from '../../utils/querybuilder';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
