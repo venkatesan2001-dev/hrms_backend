@@ -13,14 +13,13 @@ import rolesRouter from "./routes/roles.js";
 dotenv.config();
 
 let isMongoConnected = false;
-let m = "DEFAULT";
+
 async function ensureMongoConnection() {
   if (isMongoConnected) return;
   const MONGO_URI = process.env.MONGO_URI;
   await mongoose.connect(MONGO_URI, { dbName: "hrms_db" });
   console.log("Connected to MongoDB", MONGO_URI);
   isMongoConnected = true;
-  m = "CONNECTED";
 }
 
 export function createApp({ basePath = "" } = {}) {
@@ -32,15 +31,10 @@ export function createApp({ basePath = "" } = {}) {
   // Kick off mongo connection; don't block route mounting
   ensureMongoConnection().catch((err) => {
     console.error("Mongo connection error", err);
-    m = err;
   });
 
   app.get("/", (req, res) => {
-    res.json({
-      message: `Welcome to the HRMS API ${isMongoConnected ? "Yes" : "No"}`,
-      url: process.env.MONGO_URI,
-      m,
-    });
+    res.json({ message: "Welcome to the HRMS API" });
   });
 
   app.get(`${basePath}/health`, (req, res) => {
