@@ -20,6 +20,7 @@ async function ensureMongoConnection() {
   await mongoose.connect(MONGO_URI, { dbName: "hrms_db" });
   console.log("Connected to MongoDB", MONGO_URI);
   isMongoConnected = true;
+  m = "CONNECTED";
 }
 
 export function createApp({ basePath = "" } = {}) {
