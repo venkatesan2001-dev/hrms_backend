@@ -36,7 +36,7 @@ import { EmailTemplateService } from '../email_template/email_template.service';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private jwtService: JwtService,
+    private readonly jwtService: JwtService,
     private readonly mailConfigService: MailConfigService,
     private readonly emailTemplateService: EmailTemplateService,
   ) {}

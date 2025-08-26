@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MailConfigService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor() {}
 
   mailFunction(email: string, subject: string, textContent: string) {
     // const SibApiV3Sdk = require('sib-api-v3-sdk');
