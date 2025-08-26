@@ -26,25 +26,18 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URI') || process.env.MONGO_URI,
+        uri: process.env.MONGO_URI,
       }),
     }),
     WinstonModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          winston.format.json(),
-        ),
-        transports: [
-          new DailyRotateFile({
-            filename: '%DATE%',
-            dirname: configService.get<string>('WINSTON_LOG_PATH') || process.env.WINSTON_LOG_PATH || 'logs',
-            datePattern: 'YYYY-MM-DD',
-            level: 'info',
-            json: true,
-            extension: '.log',
-          }),
+      useFactory: () => {
+        const winstonFileEnabled =
+          (process.env.WINSTON_FILE_ENABLED || 'true') !== 'false';
+        const resolvedDirname =
+          process.env.WINSTON_LOG_PATH ||
+          (process.env.VERCEL ? '/tmp/logs' : 'logs');
+
+        const transports: winston.transport[] = [
           new winston.transports.Console({
             level: 'debug',
             handleExceptions: true,
@@ -55,9 +48,30 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
               }),
             ),
           }),
-        ],
-        exitOnError: false,
-      }),
+        ];
+
+        if (winstonFileEnabled) {
+          transports.push(
+            new DailyRotateFile({
+              filename: '%DATE%',
+              dirname: resolvedDirname,
+              datePattern: 'YYYY-MM-DD',
+              level: 'info',
+              json: true,
+              extension: '.log',
+            }),
+          );
+        }
+
+        return {
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.json(),
+          ),
+          transports,
+          exitOnError: false,
+        };
+      },
     }),
   ],
   controllers: [AppController],
