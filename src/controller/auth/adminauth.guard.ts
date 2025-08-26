@@ -9,14 +9,12 @@ import { JwtService } from '@nestjs/jwt';
 import { DefaultMessage, ROLE, ResponseStatus } from '../../constants';
 import { AuthService } from './auth.service';
 import { extractTokenFromHeader } from '../../utils/extract-token';
-import { ConfigService } from '@nestjs/config';
 import { convertToUppercase } from '../../utils/querybuilder';
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private configService: ConfigService,
     private authService: AuthService,
   ) {}
 
@@ -29,7 +27,7 @@ export class AdminAuthGuard implements CanActivate {
     let verify_token: {};
     try {
       verify_token = this.jwtService.verify(token, {
-        secret: this.configService.get('JWT_SECRET_KEY'),
+        secret: process.env.JWT_SECRET_KEY,
       });
     } catch (error) {
       const error_message = convertToUppercase(error.message);

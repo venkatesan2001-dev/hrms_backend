@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import configuration from './config/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import DailyRotateFile = require('winston-daily-rotate-file');
 import {
@@ -17,24 +16,21 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     EmployeeModule,
     EmailTemplateModule,
     JwtModule.register({
       global: true,
     }),
-    ConfigModule.forRoot({
-      load: [configuration],
-      isGlobal: true,
-    }),
     MongooseModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        // uri: configService.get('MONGO_URI'),
-        uri: 'mongodb+srv://venkatesan2001official:venkatesan2001official@cluster0.we3z6ih.mongodb.net/',
-      }),
       inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI') || process.env.MONGO_URI,
+      }),
     }),
     WinstonModule.forRootAsync({
+      inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         format: winston.format.combine(
           winston.format.timestamp(),
@@ -43,7 +39,7 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
         transports: [
           new DailyRotateFile({
             filename: '%DATE%',
-            dirname: configService.get('WINSTON_LOG_PATH'),
+            dirname: configService.get<string>('WINSTON_LOG_PATH') || process.env.WINSTON_LOG_PATH || 'logs',
             datePattern: 'YYYY-MM-DD',
             level: 'info',
             json: true,
@@ -62,7 +58,6 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
         ],
         exitOnError: false,
       }),
-      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],

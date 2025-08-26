@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { EmployeeService } from '../employee/employee.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly configService: ConfigService,
     private readonly employeeService: EmployeeService,
   ) {}
 
@@ -20,7 +18,7 @@ export class AuthService {
     if (user) {
       let data = await this.employeeService.pbkdf2Promise(
         payload['password'],
-        this.configService.get('HASH_SECRET_KEY'),
+        process.env.HASH_SECRET_KEY,
       );
       if (data === user.password) return user;
     }
@@ -29,7 +27,7 @@ export class AuthService {
   async hashPassword(password: string) {
     const data = await this.employeeService.pbkdf2Promise(
       password,
-      this.configService.get('HASH_SECRET_KEY'),
+      process.env.HASH_SECRET_KEY,
     );
     return data;
   }

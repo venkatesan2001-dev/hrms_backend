@@ -11,7 +11,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { CommonInterceptor } from '../../common.interceptor';
 import {
@@ -37,7 +36,6 @@ import { EmailTemplateService } from '../email_template/email_template.service';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly configService: ConfigService,
     private jwtService: JwtService,
     private readonly mailConfigService: MailConfigService,
     private readonly emailTemplateService: EmailTemplateService,
@@ -68,10 +66,10 @@ export class AuthController {
       id: employee._id,
       email: employee.email,
     };
-    const privateKey = this.configService.get('JWT_SECRET_KEY');
+    const privateKey = process.env.JWT_SECRET_KEY;
     const options = {
       secret: privateKey,
-      expiresIn: this.configService.get('JWT_EXPIRE'),
+      expiresIn: process.env.JWT_EXPIRE,
     };
     const token = this.jwtService.sign(tokenload, options);
     return {
@@ -105,7 +103,7 @@ export class AuthController {
       _id: isUserExist._id,
     };
     const token = this.jwtService.sign(tokenload, options);
-    const url = this.configService.get('CLIENT_URL');
+    const url = process.env.CLIENT_URL;
     const authenticity_link =
       url + redirect_url + '?token=' + token + '&id=' + btoa(isUserExist._id);
     const email_template_data = await this.emailTemplateService.findOne({

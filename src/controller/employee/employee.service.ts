@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Employee } from './schema/employee.schema';
 import { Model } from 'mongoose';
 import { findAndPaginateData } from '../../utils/querybuilder';
-import { ConfigService } from '@nestjs/config';
 import { MailConfigService } from '../../utils/mail.config';
 import { EmailTemplateService } from '../email_template/email_template.service';
 import { DefaultMessage, EmailTemplatesConfig } from '../../constants';
@@ -15,7 +14,6 @@ export class EmployeeService {
   constructor(
     @InjectModel(Employee.name)
     private employeeModel: Model<Employee>,
-    private readonly configService: ConfigService,
     private readonly mailConfigService: MailConfigService,
     private readonly emailTemplateService: EmailTemplateService,
   ) {}
@@ -33,7 +31,7 @@ export class EmployeeService {
     let password = Math.random().toString(36).slice(2);
     const hashed_password = await this.pbkdf2Promise(
       password,
-      this.configService.get('HASH_SECRET_KEY'),
+      process.env.HASH_SECRET_KEY,
     );
     payload.password = hashed_password;
     const data = await this.employeeModel.create(payload);
@@ -63,7 +61,7 @@ export class EmployeeService {
           password ? password : DefaultMessage.NOT_AVAILABLE,
         )
         .replace('{{DISCLAIMER}}', EmailTemplatesConfig.DISCLAIMER)
-        .replaceAll('{{DOMAINURL}}', this.configService.get('CLIENT_URL')),
+        .replaceAll('{{DOMAINURL}}', process.env.CLIENT_URL),
     );
     return data;
   }
