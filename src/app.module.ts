@@ -29,7 +29,8 @@ import { EmailTemplateModule } from './controller/email_template/email_template.
     }),
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get('MONGO_URI'),
+        // uri: configService.get('MONGO_URI'),
+        uri: 'mongodb+srv://venkatesan2001official:venkatesan2001official@cluster0.we3z6ih.mongodb.net/',
       }),
       inject: [ConfigService],
     }),
